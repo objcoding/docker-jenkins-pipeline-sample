@@ -1,10 +1,15 @@
 #!/bin/bash
 
 # env
-active=${1:-master}
+branch=${1:-master}
+servicename=${2:-none}
 registry="172.16.0.13:5000"
 timestamp=`date +%Y%m%d%H%M%S`
-servicename=docker-jenkins-sample
+
+if [ $servicename -eq "none" ] ; then
+    echo 'servicename is none'
+    exit 1
+fi
 
 # 检索出所有Dockerfile
 Dockerfiles=`find -name Dockerfile`
@@ -23,13 +28,13 @@ fi
 # 单个module的项目
 if [ "$j" -eq "1" ];
 then
-    echo "构建镜像：$registry/$servicename:$active-$timestamp"
-    docker build --build-arg ACTIVE=${active} -t ${registry}/${servicename}:${active}-${timestamp} .
-    echo "上传镜像（tiemstamp）：$registry/$servicename:$active-$timestamp"
-    docker push ${registry}/${servicename}:${active}-${timestamp}
-    echo "上传镜像（latest）：$registry/$servicename:$active-latest"
-    docker tag ${registry}/${servicename}:${active}-${timestamp} ${registry}/${servicename}:${active}-latest
-    docker push ${registry}/${servicename}:${active}-latest
+    echo "构建镜像：$registry/$servicename:$branch-$timestamp"
+    docker build --build-arg ACTIVE=${branch} -t ${registry}/${servicename}:${branch}-${timestamp} .
+    echo "上传镜像（tiemstamp）：$registry/$servicename:$branch-$timestamp"
+    docker push ${registry}/${servicename}:${branch}-${timestamp}
+    echo "上传镜像（latest）：$registry/$servicename:$branch-latest"
+    docker tag ${registry}/${servicename}:${branch}-${timestamp} ${registry}/${servicename}:${branch}-latest
+    docker push ${registry}/${servicename}:${branch}-latest
     echo "构建完成！"
 
 # 多个module的项目
@@ -63,13 +68,13 @@ else
                 cd ../$updatedModule
             fi
 
-            echo "构建镜像：$registry/$servicename:$active-$timestamp"
-            docker build --build-arg ACTIVE=${active} -t ${registry}/${servicename}:${active}-${timestamp} .
-            echo "上传镜像（tiemstamp）：$registry/$servicename:$active-$timestamp"
-            docker push ${registry}/${servicename}:${active}-${timestamp}
-            echo "上传镜像（latest）：$registry/$servicename:$active-latest"
-            docker tag ${registry}/${servicename}:${active}-${timestamp} ${registry}/${servicename}:${active}-latest
-            docker push ${registry}/${servicename}:${active}-latest
+            echo "构建镜像：$registry/$servicename:$branch-$timestamp"
+            docker build --build-arg ACTIVE=${branch} -t ${registry}/${servicename}:${branch}-${timestamp} .
+            echo "上传镜像（tiemstamp）：$registry/$servicename:$branch-$timestamp"
+            docker push ${registry}/${servicename}:${branch}-${timestamp}
+            echo "上传镜像（latest）：$registry/$servicename:$branch-latest"
+            docker tag ${registry}/${servicename}:${branch}-${timestamp} ${registry}/${servicename}:${branch}-latest
+            docker push ${registry}/${servicename}:${branch}-latest
 
             ((i++))
     done
