@@ -6,13 +6,17 @@ registry="172.16.0.13:5000"
 timestamp=`date +%Y%m%d%H%M%S`
 servicename=docker-jenkins-sample
 
-# 检索出所有module
+# 检索出所有Dockerfile
 modules=`find -name Dockerfile`
 echo "检索到Dockerfile：\n%s\n" "${modules}"
 j=0
 for m in ${modules} ; do
     ((j++))
 done
+if [ "$j" -eq "0" ]; then
+    echo '没有检索到Dokcerfile'
+    exit 1
+fi
 
 # 单个module的项目
 if [ "$j" -eq "1" ];
