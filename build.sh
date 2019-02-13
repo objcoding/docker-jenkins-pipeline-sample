@@ -9,9 +9,13 @@ servicename=docker-jenkins-sample
 # 检索出所有module
 modules=`find -name Dockerfile`
 echo "检索到Dockerfile：\n%s\n" "${modules}"
+j=0
+for m in ${modules[@]} ; do
+    ((i++))
+done
 
 # 单个module的项目
-if [ "${modules}" -eq "./Dockerfile" ];
+if [ "$j" -eq "1" ];
 then
     echo "构建镜像：$registry/$servicename:$active-$timestamp"
     docker build --build-arg ACTIVE=${active} -t ${registry}/${servicename}:${active}-${timestamp} .
