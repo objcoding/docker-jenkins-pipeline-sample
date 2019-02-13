@@ -7,10 +7,14 @@ timestamp=`date +%Y%m%d%H%M%S`
 servicename=docker-jenkins-sample
 
 # 检索出所有Dockerfile
-DockerfilePath=`find -name Dockerfile`
-echo "检索到Dockerfile：\n%s\n" "${DockerfilePath}"
+Dockerfiles=`find -name Dockerfile`
+echo "检索到Dockerfile：\n%s\n" "${Dockerfiles}"
+
+ files=`git diff --name-only HEAD~ HEAD`
+ echo "git提交的文件：\n%s\n" "${files[@]}"
+
 j=0
-for d in ${DockerfilePath} ; do
+for d in ${Dockerfiles} ; do
     ((j++))
 done
 echo "$j"
@@ -36,7 +40,7 @@ else
     # 检索到变更的module
     files=`git diff --name-only HEAD~ HEAD`
     echo "git提交的文件：\n%s\n" "${files[@]}"
-    for module in ${DockerfilePath[@]}
+    for module in ${Dockerfiles[@]}
     do
         module=`echo ${module%/*}`
         module=`echo ${module##*/}`
