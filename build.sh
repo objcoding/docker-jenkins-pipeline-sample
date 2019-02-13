@@ -10,9 +10,6 @@ servicename=docker-jenkins-sample
 Dockerfiles=`find -name Dockerfile`
 echo "检索到Dockerfile：\n%s\n" "${Dockerfiles}"
 
- files=`git diff --name-only HEAD~ HEAD`
- echo "git提交的文件：\n%s\n" "${files[@]}"
-
 j=0
 for d in ${Dockerfiles} ; do
     ((j++))
