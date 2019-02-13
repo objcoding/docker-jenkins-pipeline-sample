@@ -8,10 +8,10 @@ servicename=docker-jenkins-sample
 
 # 检索出所有module
 modules=`find -name Dockerfile`
-echo "检索到Dockerfile：\n%s\n" $(modules[@])
+echo "检索到Dockerfile：\n%s\n" "${modules}"
 
 # 单个module的项目
-if ["${modules}" -eq "./Dockerfile"];
+if [ "${modules}" -eq "./Dockerfile" ];
 then
     echo "构建镜像：$registry/$servicename:$active-$timestamp"
     docker build --build-arg ACTIVE=${active} -t ${registry}/${servicename}:${active}-${timestamp} .
@@ -26,7 +26,7 @@ then
 else
     # 检索到变更的module
     files=`git diff --name-only HEAD~ HEAD`
-    echo "git提交的文件：\n%s\n" "${files[@]}"
+    # echo "git提交的文件：\n%s\n" "${files[@]}"
     for module in ${modules[@]}
     do
         module=`echo ${module%/*}`
