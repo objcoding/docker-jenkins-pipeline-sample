@@ -3,14 +3,14 @@
 pipeline {
     agent any
     environment {
-        GIT_REPO = "https://github.com/objcoding/docker-deploy-tutorial.git"
+        GIT_REPO = " https://github.com/objcoding/docker-jenkins-sample.git"
         BUILD_IMAGE_SCRIPT_PATH = "build.sh"
     }
 
     stages {
         stage('获取代码') {
             steps {
-                git([url: "${GIT_REPO}", branch: "docker-jenkins"])
+                git([url: "${GIT_REPO}", branch: "master"])
             }
         }
 
@@ -24,7 +24,7 @@ pipeline {
 
         stage('构建镜像') {
             steps {
-                sh "sh ${BUILD_IMAGE_SCRIPT_PATH} docker-jenkins"
+                sh "sh ${BUILD_IMAGE_SCRIPT_PATH} master"
             }
         }
 
