@@ -8,7 +8,7 @@ servicename=docker-jenkins-sample
 
 # 检索出所有module
 modules=`find -name Dockerfile`
-echo "检索到Dockerfile：\n%s\n" ${modules[@]}
+echo "检索到Dockerfile：\n%s\n" $(modules[@])
 
 # 单个module的项目
 if ["${modules}" -eq "./Dockerfile"];
@@ -26,7 +26,7 @@ then
 else
     # 检索到变更的module
     files=`git diff --name-only HEAD~ HEAD`
-    echo "git提交的文件：\n%s\n" ${files[@]}
+    echo "git提交的文件：\n%s\n" "${files[@]}"
     for module in ${modules[@]}
     do
         module=`echo ${module%/*}`
@@ -37,7 +37,7 @@ else
     done
 
     echo "准备操作的项目："
-    echo "%s\n" ${updatedModules[@]}
+    echo "%s\n" "${updatedModules[@]}"
     if [ ${#updatedModules[@]} == 0 ]; then
         echo '不存在改动的项目'
         exit 1
