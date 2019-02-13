@@ -13,6 +13,7 @@ j=0
 for m in ${modules} ; do
     ((j++))
 done
+echo "$j"
 if [ "$j" -eq "0" ]; then
     echo '没有检索到Dokcerfile'
     exit 1
