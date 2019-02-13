@@ -10,8 +10,8 @@ servicename=docker-jenkins-sample
 modules=`find -name Dockerfile`
 echo "检索到Dockerfile：\n%s\n" "${modules}"
 j=0
-for m in ${modules[@]} ; do
-    ((i++))
+for m in ${modules} ; do
+    ((j++))
 done
 
 # 单个module的项目
