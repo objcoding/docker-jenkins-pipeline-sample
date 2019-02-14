@@ -18,6 +18,7 @@ pipeline {
         BRANCH_NAME = "master"
         REMOTE_HOST = "193.112.61.178"
         GIT_REPO_URL = "https://github.com/objcoding/docker-jenkins-sample.git"
+        SERVICE_NAME = "docker-jenkins-sample"
         STACK_NAME = "myapp"
         COMPOSE_FILE_NAME = "docker-compose-" + "${STACK_NAME}" + ".yml"
     }
