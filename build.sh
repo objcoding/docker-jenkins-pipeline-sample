@@ -19,12 +19,20 @@ if [ "$j" -eq "0" ]; then
     exit 1
 fi
 
+# 检索到变更的module
+files=`git diff --name-only HEAD~ HEAD`
+echo "git提交的文件：\n%s\n" "${files[@]}"
+
 # 单个module的项目
 if [ "$j" -eq "1" ];
 then
     module=`pwd`
     module=`echo ${module%_*}`
     module=`echo ${module##*/}`
+    if [[ $files != $module ]];then
+        echo '不存在改动'
+        exit 1
+    fi
 
     echo "构建镜像：$registry/$module:$branch-$timestamp"
     docker build --build-arg ACTIVE=${branch} -t ${registry}/${module}:${branch}-${timestamp} .
@@ -37,9 +45,6 @@ then
 
 # 多个module的项目
 else
-    # 检索到变更的module
-    files=`git diff --name-only HEAD~ HEAD`
-    echo "git提交的文件：\n%s\n" "${files[@]}"
     for module in ${Dockerfiles[@]}
     do
         module=`echo ${module%/*}`
@@ -78,4 +83,3 @@ else
     done
     echo "构建完成！"
 fi
-
