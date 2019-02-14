@@ -3,7 +3,7 @@
 # env
 branch=${1:-master}
 servicename=${2:-none}
-registry="172.16.0.13:5000"
+registry=${2:-172.16.0.13:5000}
 timestamp=`date +%Y%m%d%H%M%S`
 
 if [ $servicename -eq "none" ] ; then
