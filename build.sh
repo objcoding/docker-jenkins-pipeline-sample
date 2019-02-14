@@ -29,10 +29,6 @@ then
     module=`pwd`
     module=`echo ${module%_*}`
     module=`echo ${module##*/}`
-    if [[ $files != $module ]];then
-        echo '不存在改动'
-        exit 1
-    fi
 
     echo "构建镜像：$registry/$module:$branch-$timestamp"
     docker build --build-arg ACTIVE=${branch} -t ${registry}/${module}:${branch}-${timestamp} .
