@@ -9,9 +9,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.objcoding</groupId>
-    <artifactId>docker-jenkins-sample</artifactId>
+    <artifactId>docker-jenkins-pipeline-sample</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>docker-jenkins-sample</name>
     <description>Demo project for Docker Jenkins deploy</description>
 
     <properties>
