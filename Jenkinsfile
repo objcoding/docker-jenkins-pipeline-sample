@@ -1,5 +1,7 @@
 #!groovy
 
+// 在多分支构建下，严格规定Jenkinsfile只存在可以发版的分支上
+
 // 引用在jenkins已经全局定义好的library
 library 'objcoding-pipeline-library'
     def map = [:]
